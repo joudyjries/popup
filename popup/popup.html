@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Modal</title>
+  <link href="pop.css" rel="stylesheet">
+  <script defer src="script.js"></script>
+</head>
+<body>
+    <input type="button" data-modal-target="#modal" value="Open Modal">
+  <!-- <button ></button> -->
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <button data-close-button class="close-button">&times;</button>
+    </div>
+    <div class="modal-body">
+     <input type="text" placeholder="write your Replay">
+     <button onclick="closeModal(modal)">Done</button>
+    </div>
+  </div>
+  <div id="overlay"></div>
+  <script>
+    const openModalButtons = document.querySelectorAll('[data-modal-target]')
+const closeModalButtons = document.querySelectorAll('[data-close-button]')
+const overlay = document.getElementById('overlay')
+
+openModalButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    const modal = document.querySelector(button.dataset.modalTarget)
+    openModal(modal)
+  })
+})
+
+overlay.addEventListener('click', () => {
+  const modals = document.querySelectorAll('.modal.active')
+  modals.forEach(modal => {
+    closeModal(modal)
+  })
+})
+
+closeModalButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    const modal = button.closest('.modal')
+    closeModal(modal)
+  })
+})
+
+function openModal(modal) {
+  if (modal == null) return
+  modal.classList.add('active')
+  overlay.classList.add('active')
+}
+
+function closeModal(modal) {
+  if (modal == null) return
+  modal.classList.remove('active')
+  overlay.classList.remove('active')
+}
+  </script>
+</body>
+</html>
